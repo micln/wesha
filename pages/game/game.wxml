@@ -1,0 +1,41 @@
+<!--game.wxml-->
+<view id="pGame">
+	<view class="center">
+		<text class='title'>欢迎来到狼人杀世界！</text>
+		<text class='small'>当前房间共有 {{ _playerNum }} / {{ _playerCap }}个玩家</text>	
+	</view>
+
+	<view>
+		<block wx:for="{{players}}">
+			<view class="seat" id="seat-{{index}}" style="float: left;">
+				<block wx:if="{{item}}" >
+					<view class="head">
+						<image src="{{item.wxUser.avatarUrl}}" style="width: 100%;height:100px;" ></image>
+					</view>
+					<view class="body">
+						<view id="player-{{index}}">{{ item.wxUser.nickName }}</view>
+						<view class="dsp">{{ item.role }}</view>	
+					</view>	
+				</block>
+				<block wx:else >
+					<view class='center'>
+						<button size="mini" bindtap="bindseatDownMeTap" data-player_idx="{{index}}">坐下</button>				
+					</view>
+				</block>
+			</view>	
+		</block>
+	</view>
+
+	<view class="footer">
+		<block wx:if="{{ gameStatus == 'wait' }}">
+			<block wx:if="{{ _playerNum >= _playerCap }}">
+				<button type="primary">开始游戏</button>
+			</block>
+			<block wx:else>
+				<button type="warn" disabled="true">开始游戏</button>	
+			</block>
+			
+			
+		</block>
+	</view>
+</view>
